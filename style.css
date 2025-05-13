@@ -93,7 +93,8 @@ body.dark-mode {
 }
 
 .name-part {
-    font-size: clamp(3rem, 12vw, 7rem); /* Responsive font size */
+    max-width: ;
+    font-size: clamp(3rem, 12vw, 8rem); /* Responsive font size */
     line-height: 0.9;
 }
 
@@ -195,6 +196,18 @@ body.dark-mode {
     text-align: center;
 }
 
+footer {
+    position: fixed; /* Or 'absolute' if needed */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    left: 0;
+    width: 100%; /* Full width */
+    z-index: 9999; /* High z-index to ensure it appears on top */
+    background-color: var(--footer-background-color); /* Optional styling */
+    color: var(--footer-text-color); /* Optional styling */
+    text-align: center; /* Optional styling */
+    padding: 10px; /* Optional styling */
+    margin-right: 5vw;
+}
 
 /* Footer */
 .site-footer {
@@ -235,6 +248,7 @@ social-links-individual{
     cursor: pointer;
     padding: 5px;
     line-height: 1; /* Prevent extra space due to line height */
+    margin-right: 40px;
 }
 
 .invert {
@@ -315,7 +329,7 @@ body.dark-mode #theme-toggle .icon-dark { display: inline; } */
 
 .right-panel {
     width: 60%;
-    padding: 40px 30px;
+    padding: 40px 30px 0px 30px;
     overflow-y: auto;
     /* background-color: var(--card-bg); */
 }
