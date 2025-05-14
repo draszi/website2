@@ -253,8 +253,12 @@ body.dark-mode {
     transition: filter 0.3s ease;
 }
 
-/* Utility class for inverting elements like icons */
-.invert {
+/* Inverting icons for color modes */
+.invert svg {
+    filter: invert(1);
+}
+
+#theme-icon.invert {
     filter: invert(1);
 }
 
@@ -262,14 +266,14 @@ body.dark-mode {
 /* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
     body {
-        overflow-y: auto; /* Allow body to scroll on mobile */
+        overflow: hidden; /* Allow body to scroll on mobile */
     }
 
     .main-layout {
         flex-direction: column;
         height: auto; /* Content defines height */
         overflow: visible; /* Allow content to flow */
-            padding-bottom: var(--footer-height); /* Add padding equal to the footer's height */
+        padding-bottom: var(--footer-height); /* Add padding equal to the footer's height */
     }
 
     .left-panel, .right-panel {
