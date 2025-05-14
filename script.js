@@ -1,69 +1,74 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Header Text Animation
+    // --- HEADER TEXT ENTRY ANIMATION ---
+    // Add 'animate-in' class to trigger CSS slide-in and fade-in effects.
     const firstName = document.getElementById('first-name');
     const lastName = document.getElementById('last-name');
     const jobTitle = document.getElementById('job-title');
 
-    // Staggered animation
-    setTimeout(() => firstName.classList.add('animate-in'), 200);
-    setTimeout(() => lastName.classList.add('animate-in'), 400);
-    setTimeout(() => jobTitle.classList.add('animate-in'), 600);
+    // Stagger the animations for a more dynamic entry.
+    if (firstName) setTimeout(() => firstName.classList.add('animate-in'), 200);
+    if (lastName) setTimeout(() => lastName.classList.add('animate-in'), 400);
+    if (jobTitle) setTimeout(() => jobTitle.classList.add('animate-in'), 600);
 
-
-    // Theme Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const socialLinks = document.querySelector('.social-links'); 
+    // --- THEME MANAGEMENT ---
+    const themeToggleButton = document.getElementById('theme-toggle');
     const body = document.body;
+    const themeIcon = document.getElementById('theme-icon'); // The <img> inside the button
+    const socialLinksContainer = document.querySelector('.social-links'); // The div containing social SVGs
 
-    // Function to apply theme
-    const applyTheme = (theme) => {
+    // Function to apply the visual state of the theme
+    const applyThemeVisuals = (theme) => {
         if (theme === 'dark') {
             body.classList.add('dark-mode');
+            if (themeIcon) themeIcon.classList.add('invert'); // Invert the sun/moon icon
+            if (socialLinksContainer) socialLinksContainer.classList.add('invert'); // Invert social icons
         } else {
             body.classList.remove('dark-mode');
+            if (themeIcon) themeIcon.classList.remove('invert');
+            if (socialLinksContainer) socialLinksContainer.classList.remove('invert');
         }
     };
 
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    } else {
-        // Optional: Check system preference if no saved theme
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            applyTheme('dark');
+    // Initialize theme on page load
+    const initializeTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            // User has a saved preference
+            applyThemeVisuals(savedTheme);
         } else {
-            applyTheme('light'); // Default to light
-        }
-    }
-    
-
-    // themeToggle.addEventListener('click', () => {
-    //     if (body.classList.contains('dark-mode')) {
-    //         applyTheme('light');
-    //         localStorage.setItem('theme', 'light');
-    //     } else {
-    //         applyTheme('dark');
-    //         localStorage.setItem('theme', 'dark');
-    //     }
-    // });
-
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode'); // Optional: Toggle dark mode class on the body
-        themeIcon.classList.toggle('invert'); // Toggle the invert class on the SVG
-        socialLinks.classList.toggle('invert');
-    });
-
-    // Optional: Listen for system theme changes if no preference is set
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (!localStorage.getItem('theme')) { // Only if no user preference
-            if (e.matches) {
-                applyTheme('dark');
+            // No saved theme, check system preference
+            // Applies visuals but doesn't store it, allowing system changes to reflect live
+            // until the user makes an explicit choice via the toggle.
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                applyThemeVisuals('dark');
             } else {
-                applyTheme('light');
+                applyThemeVisuals('light'); // Default to light
             }
         }
-    });
+    };
 
+    initializeTheme();
+
+    // Event listener for the theme toggle button
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', () => {
+            const isCurrentlyDark = body.classList.contains('dark-mode');
+            const newTheme = isCurrentlyDark ? 'light' : 'dark';
+            
+            applyThemeVisuals(newTheme);
+            localStorage.setItem('theme', newTheme); // Save the user's explicit choice
+        });
+    }
+
+    // Listen for changes in system theme preference
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // If the user hasn't manually set a theme (i.e., no 'theme' in localStorage),
+            // then allow the site's theme to adapt to system changes.
+            if (!localStorage.getItem('theme')) {
+                const newSystemTheme = e.matches ? 'dark' : 'light';
+                applyThemeVisuals(newSystemTheme);
+            }
+        });
+    }
 });

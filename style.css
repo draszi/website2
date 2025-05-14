@@ -1,15 +1,16 @@
+/* --- FONTS --- */
 @font-face {
     font-family: 'Neue Montreal';
-    src: url('neue-montreal/NeueMontreal-Regular.otf') format('opentype');
-    font-weight: 200;
+    src: url('neue-montreal/NeueMontreal-Light.otf') format('opentype');
+    font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Neue Montreal';
-    src: url('neue-montreal/NeueMontreal-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: regular;
+    src: url('neue-montreal/NeueMontreal-Regular.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
 }
 
 @font-face {
@@ -21,39 +22,40 @@
 
 @font-face {
     font-family: 'Neue Montreal';
-    src: url('neue-montreal/NeueMontreal-Light.otf') format('opentype');
-    font-weight: 100;
+    src: url('neue-montreal/NeueMontreal-Bold.otf') format('opentype');
+    font-weight: 700;
     font-style: normal;
 }
+
+/* --- KEYFRAMES --- */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
+/* --- VARIABLES & BASE STYLES --- */
 :root {
     --bg-color: #f5f1e8;
     --text-color: #2d2d2d;
     --primary-text-color: #1a1a1a;
     --card-bg: #222222;
     --card-text: #e0e0e0;
-    --accent-color: #007bff; /* For links, can be changed */
+    --accent-color: #007bff;
     --font-main: 'Neue Montreal', sans-serif;
     --header-initial-offset: -100%;
+    --footer-height: 40px; 
+    --border-color: #ccc;
 }
 
 body {
-    opacity: 0; /* Start fully transparent */
-    animation: fadeIn 1s ease-in-out forwards; /* Fade in over 1.6 seconds */
     margin: 0;
     font-family: var(--font-main);
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+    overflow: hidden; /* Prevent scrolling, only one page*/
 }
 
 body.dark-mode {
@@ -62,260 +64,14 @@ body.dark-mode {
     --primary-text-color: #f0f0f0;
     --card-bg: #333333;
     --card-text: #f0f0f0;
+    --border-color: #444;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    min-height: 95vh; /* Make sure footer can be at bottom */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header / Hero Animation */
-.hero {
-    margin-bottom: 40px;
-    overflow: hidden; /* Clip animations */
-}
-
-.name-title {
-    position: relative; /* For absolute positioning of parts if needed or transform origin */
-}
-
-.name-part, .title-part {
-    margin: 0;
-    font-weight: 900;
-    color: var(--primary-text-color);
-    opacity: 0;
-    transform: translateX(var(--header-initial-offset));
-    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease-out; /* Bounce-like effect */
-}
-
-.name-part {
-    max-width: ;
-    font-size: clamp(3rem, 12vw, 8rem); /* Responsive font size */
-    line-height: 0.9;
-}
-
-#first-name.animate-in {
-    transform: translateX(0);
-    opacity: 1;
-    transition-delay: 0.2s;
-}
-#last-name{
-    padding-left: 2vw;
-}
-#last-name.animate-in {
-    transform: translateX(0);
-    opacity: 1;
-    transition-delay: 0.4s;
-}
-#job-title{
-    font-size: small;
-}
-#job-title.animate-in {
-    transform: translateX(0);
-    opacity: 1;
-    transition-delay: 0.6s;
-}
-
-.title-part {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 400;
-    color: var(--text-color);
-    margin-top: 5px;
-    margin-bottom: 20px;
-}
-
-.bio {
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    line-height: 1.6;
-    max-width: 600px; /* Limit bio width on larger screens */
-}
-
-.bio-link {
-    color: var(--primary-text-color);
-    font-weight: bold;
-    text-decoration: underline;
-    transition: color 0.2s ease;
-}
-.bio-link:hover {
-    color: var(--accent-color);
-}
-
-/* Projects Section */
-.projects-section {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    flex-grow: 1; /* Allows this section to take up available space */
-}
-
-.section-title {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    font-weight: 700;
-    color: var(--primary-text-color);
-    margin-bottom: 15px;
-}
-
-.project-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.project-list {
-    display: grid;
-    grid-template-columns: 1fr; /* Mobile: 1 column */
-    gap: 15px;
-    overflow-y: auto;
-    max-height: 300px; /* Adjust as needed for desired scrollable area */
-    padding-right: 10px; /* For scrollbar */
-}
-
-
-
-
-.project-card {
-    background-color: var(--card-bg);
-    color: var(--card-text);
-    padding: 20px 15px;
-    border-radius: 8px;
-    font-size: 1rem;
-    min-height: 60px; /* Matches screenshot where cards have some height */
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.project-card span { /* For the G, W, P letters */
-    font-weight: bold;
-    font-size: 1.8em;
-    margin-right: 15px;
-    min-width: 25px; /* Ensure alignment */
-    text-align: center;
-}
-
-footer {
-    position: fixed; /* Or 'absolute' if needed */
-    bottom: 0; /* Stick to the bottom of the viewport */
-    left: 0;
-    width: 100%; /* Full width */
-    z-index: 9999; /* High z-index to ensure it appears on top */
-    background-color: var(--footer-background-color); /* Optional styling */
-    color: var(--footer-text-color); /* Optional styling */
-    text-align: center; /* Optional styling */
-    padding: 10px; /* Optional styling */
-    margin-right: 5vw;
-}
-
-/* Footer */
-.site-footer {
-    /* height: 60px; */
-    background: var(--bg-color, #fff);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    border-top: 1px solid #ccc;
-}
-.social-links{
-    display: flex;
-    align-items: center;
-}
-.social-links a {
-    color: var(--primary-text-color);
-    text-decoration: none;
-    margin-right: 15px;
-    font-weight: bold;
-    transition: color 0.2s ease;
-}
-social-links-individual{
-    height: 30;
-}
-.social-links a:hover {
-    color: var(--accent-color);
-}
-.resume-link {
-    font-weight: normal;
-}
-
-#theme-toggle {
-    background: none;
-    border: none;
-    color: var(--primary-text-color);
-    font-size: 1.5rem; /* Emoji size */
-    cursor: pointer;
-    padding: 5px;
-    line-height: 1; /* Prevent extra space due to line height */
-    margin-right: 40px;
-}
-
-.invert {
-    filter: invert(1);
-}
-
-/* #theme-toggle .icon-dark { display: none; }
-body.dark-mode #theme-toggle .icon-light { display: none; }
-body.dark-mode #theme-toggle .icon-dark { display: inline; } */
-
-
-/* Desktop Styles */
-@media (min-width: 768px) {
-    .container {
-        padding: 40px;
-    }
-
-    .hero {
-        display: flex;
-        gap: 40px;
-        align-items: flex-start; /* Align title block and bio */
-        margin-bottom: 60px;
-    }
-
-    .name-title {
-        min-width: 40%; /* Give space for large name */
-        margin-bottom: 0;
-    }
-    
-    .title-part {
-        margin-bottom: 0; /* Remove bottom margin if bio is next to it */
-    }
-
-    .bio {
-        padding-top: 10px; /* Align bio text better with title */
-        max-width: 50%;
-    }
-
-    .projects-section {
-        flex-direction: row;
-        gap: 40px;
-    }
-
-    .project-column {
-        flex: 1; /* Each column takes equal space */
-    }
-
-    .project-list {
-        /* On desktop, you might want more columns for project cards if they are small */
-        /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
-        /* For now, keeping it 1 column as per design, just taller */
-        max-height: 450px; /* Taller scrollable area on desktop */
-    }
-}
-
-@media (min-width: 1024px) {
-    .project-list {
-         /* If you had many small project cards, you might do 2 columns here */
-        /* grid-template-columns: repeat(2, 1fr); */
-    }
-}
-
+/* --- MAIN LAYOUT --- */
 .main-layout {
     display: flex;
-    flex-direction: row;
-    height: 95vh;
-    overflow: hidden;
+    height: calc(100vh - var(--footer-height));
+    overflow: hidden; 
 }
 
 .left-panel {
@@ -324,36 +80,253 @@ body.dark-mode #theme-toggle .icon-dark { display: inline; } */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: var(--text-color);
 }
 
 .right-panel {
     width: 60%;
     padding: 40px 30px 0px 30px;
     overflow-y: auto;
-    /* background-color: var(--card-bg); */
 }
 
+/* --- LEFT PANEL: NAME, TITLE & BIO --- */
+.name-title {
+    position: relative;
+}
+
+.name-part, .title-part {
+    margin: 0;
+    color: var(--primary-text-color);
+    opacity: 0;
+    transform: translateX(var(--header-initial-offset));
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease-out;
+}
+
+.name-part {
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9;
+}
+
+#first-name.animate-in {
+    transform: translateX(0);
+    opacity: 1;
+    transition-delay: 0.2s;
+}
+
+#last-name {
+    padding-left: 2vw;
+}
+
+#last-name.animate-in {
+    transform: translateX(0);
+    opacity: 1;
+    transition-delay: 0.4s;
+}
+
+.title-part { /* Job title */
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+#job-title.animate-in {
+    transform: translateX(0);
+    opacity: 1;
+    transition-delay: 0.6s;
+}
+
+.bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 90%;
+    margin-top: 30px; 
+}
+
+.bio-link {
+    color: var(--primary-text-color);
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.bio-link:hover {
+    color: var(--accent-color);
+}
+
+/* --- RIGHT PANEL: PROJECTS --- */
 .projects-section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column; 
     height: 100%;
     gap: 30px;
 }
 
 .project-column {
     flex: 1;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--primary-text-color);
+    margin-bottom: 20px;
 }
 
 .project-list {
-    overflow-y: auto;
-    max-height: none; /* Full scroll in panel */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
     padding-right: 10px;
+    overflow-y: auto; 
+    flex-grow: 1; 
 }
 
-.bio {
-    max-width: 90%;
-    margin-top: auto;
+.project-card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    padding: 20px 15px;
+    border-radius: 8px;
     font-size: 1rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.project-card span {
+    font-weight: bold;
+    font-size: 1.8em;
+    margin-right: 15px;
+    min-width: 25px;
+    text-align: center;
+}
+
+/* --- FOOTER --- */
+.site-footer {
+    height: var(--footer-height);
+    background: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between social links */
+}
+
+.social-links a {
+    color: var(--primary-text-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.social-links a.resume-link {
+    font-weight: bold; 
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+
+
+#theme-toggle {
+    background: none;
+    border: none;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#theme-toggle img {
+    transition: filter 0.3s ease;
+}
+
+/* Utility class for inverting elements like icons */
+.invert {
+    filter: invert(1);
+}
+
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto; /* Allow body to scroll on mobile */
+    }
+
+    .main-layout {
+        flex-direction: column;
+        height: auto; /* Content defines height */
+        overflow: visible; /* Allow content to flow */
+            padding-bottom: var(--footer-height); /* Add padding equal to the footer's height */
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+        box-sizing: border-box; /* Include padding in width calculation */
+        height: auto;
+        /* padding: 20px; */
+    }
+    .right-panel {
+        padding-top: 0; 
+    }
+
+    .name-title {
+        display: flex;
+        flex-wrap: wrap; /* Allow title to wrap if needed */
+        align-items: baseline; /* Align text nicely */
+        row-gap: 0;
+        column-gap: 0.5em;
+    }
+    .name-part {
+        /* font-size: clamp(2.2rem, 10vw, 4rem);  /*didnt like this*/
+        font-size: 15vw;
+        line-height: 1; /* Adjust line height for inline display */
+    }
+    #last-name {
+        padding-left: 0; /* Remove desktop padding */
+    }
+    .title-part {
+        width: 100%; /* Make title take full width below name if it wraps */
+        font-size: .8rem; /* Adjust mobile font size for title */
+    }
+
+    .bio {
+        margin-top: 40px; /* Adjust bio margin for mobile */
+        max-width: 100%;
+    }
+
+
+    
+    .project-list {
+        max-height: 50vh; 
+    }
+
+    .site-footer {
+        position: fixed; 
+        bottom: 0;
+        left: 0;
+        width: 100%; 
+        height: var(--footer-height);
+        background: var(--bg-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        border-top: 1px solid var(--border-color);
+    }
+    #theme-toggle {
+        margin-right: 40px; /* Going offscreen, so had to fix this manually for now*/
+    }
 }
