@@ -267,7 +267,7 @@ body.dark-mode {
 /* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
     body {
-        overflow: hidden; 
+        overflow: visible; 
     }
 
     .main-layout {
