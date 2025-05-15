@@ -175,7 +175,8 @@ body.dark-mode {
 }
 
 .project-list {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: 1fr;
     gap: 15px;
     padding-right: 10px;
@@ -190,8 +191,8 @@ body.dark-mode {
     border-radius: 8px;
     font-size: 1rem;
     min-height: 60px;
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
 }
 
 .project-card span {
@@ -266,22 +267,27 @@ body.dark-mode {
 /* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
     body {
-        overflow: hidden; /* Allow body to scroll on mobile */
+        overflow: hidden; 
     }
 
     .main-layout {
         flex-direction: column;
-        height: auto; /* Content defines height */
-        overflow: visible; /* Allow content to flow */
-        padding-bottom: var(--footer-height); /* Add padding equal to the footer's height */
+        height: 100%; 
+        /* overflow: visible;  */
+        padding-bottom: var(--footer-height); 
     }
 
+    
     .left-panel, .right-panel {
         width: 100%;
-        box-sizing: border-box; /* Include padding in width calculation */
+        box-sizing: border-box; 
         height: auto;
         /* padding: 20px; */
     }
+    .left-panel {
+        height: 300px;
+    }
+
     .right-panel {
         padding-top: 0; 
     }
@@ -294,27 +300,38 @@ body.dark-mode {
         column-gap: 0.5em;
     }
     .name-part {
-        /* font-size: clamp(2.2rem, 10vw, 4rem);  /*didnt like this*/
+        /* font-size: clamp(2.2rem, 10vw, 4rem); */
         font-size: 15vw;
-        line-height: 1; /* Adjust line height for inline display */
+        line-height: 1; 
     }
     #last-name {
         padding-left: 0; /* Remove desktop padding */
     }
     .title-part {
-        width: 100%; /* Make title take full width below name if it wraps */
-        font-size: .8rem; /* Adjust mobile font size for title */
+        width: 100%; 
+        font-size: .8rem; 
     }
 
     .bio {
-        margin-top: 40px; /* Adjust bio margin for mobile */
+        margin-top: 40px; 
         max-width: 100%;
     }
 
-
+    .section-title{
+        position: absolute;
+    }
     
     .project-list {
         max-height: 50vh; 
+        flex-direction: row;
+        margin-top: 5rem;
+        overflow-y: visible;
+        grid-template-rows:2;
+    }
+
+    .project-card {
+        min-width: 40%;
+        min-height: 250px;
     }
 
     .site-footer {
